@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "设置浏览器代理",
+    "description": "可以自由的设置浏览器的代理,独立于系统代理设置,每次启动浏览器时生效,自动保存设置,无需手动开启,可能会出现代理服务器未设置正确导致无法上网的情况出现",
+    "version": "0.5",
+
+    "author": "luobeichen@outlook.com",
+
+    "action": {
+      "default_popup": "popup/popup.html"
+    },
+    "permissions": [
+        "proxy",
+        "storage",
+        "tabs"
+    ]
+  }

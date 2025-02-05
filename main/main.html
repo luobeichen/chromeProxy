@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <!-- 引入 layui.css -->
+        <link href="../js/layui/css/layui.css" rel="stylesheet">
+        <!-- 引入 styles.css
+        <link href="./styles.css" rel="stylesheet"> -->
+        <!-- 引入 layui.js -->
+        <script src="../js/layui/layui.js"></script>
+        <!-- 引入 自有.js -->
+        <script src="./main.html.js"></script>
+        <script src="./defaultData.js"></script>
+        <script src="./tool.js"></script>
+        <script src="./setting.js"></script>
+        <script src="./server.js"></script>
+        
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Proxy Settings</title>
+    </head>
+    <body>
+        <div action="" name="baseSettings" id="baseSettings" lay-filter="baseSettings" class="layui-form">
+            <!--选择代理模式-->
+            <div class="layui-row layui-col-space12">
+                <div class="layui-col-xs12"><p style="font-size: 40px; text-align: center; color: #16baaa;">选择代理模式</p></div>
+            </div>
+            <div class="layui-row" id="selectProxy">
+                <div class="layui-col-xs1">
+                    <input type="radio" name="mode" lay-filter="mode" id="direct_mode"  value="direct" title="直连模式" checked>
+                </div>
+                <div class="layui-col-xs1">
+                    <input type="radio" name="mode" lay-filter="mode" id="system_mode"  value="system" title="使用系统代理">
+                </div>
+                <div class="layui-col-xs1">
+                    <input type="radio" name="mode" lay-filter="mode" id="auto_detect_mode" value="auto_detect" title="自动感知代理">
+                </div>
+                <div class="layui-col-xs1">
+                    <input type="radio" name="mode" lay-filter="mode" id="pac_script_mode" value="pac_script" title="使用pac代理脚本">
+                </div>
+                <div class="layui-col-xs1">
+                    <input type="radio" name="mode" lay-filter="mode" id="URL_script_mode" value="URL_script" title="手动pac代理脚本">
+                </div>
+                <div class="layui-col-xs1">
+                    <input type="radio" name="mode" lay-filter="mode" id="single_servers_mode" value="single_servers" title="简单设置">
+                </div>
+                <div class="layui-col-xs1">
+                    <input type="radio" name="mode" lay-filter="mode" id="mutiple_servers_mode" value="mutiple_servers" title="手动设置代理">
+                </div>
+                <div class="layui-col-xs1">
+                    <input type="radio" name="mode" lay-filter="mode" id="intelligent_mode" value="intelligent" title="智能模式">
+                    <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="intelligent_mode_setting" name="intelligent_mode_setting" lay-filter="intelligent_mode_setting">转到智能模式设置</button>
+                </div>
+            </div>
+            <hr class="layui-border-red">
+                <div class="layui-col-xs12"><p class="url-script-setting">URL脚本设置</p></div>
+            <div class="layui-row layui-col-space12">
+                <div class="layui-col-xs12"><p style="font-size: 20px; text-align: center; color: #16baaa;">URL脚本设置</p></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-input-group">
+                    <div class="layui-input-prefix">Pac脚本地址:</div>
+                    <input type="text" class="layui-input" name="pac_url" id="pac_url" lay-filter="pac_url" value="http://127.0.0.1:10812/demo.pac" title="Pac脚本地址" placeholder="请输入Pac脚本地址">
+                </div>
+            </div>
+            <hr class="layui-border-black">
+            <!--pac脚本设置-->
+            <div class="layui-row layui-col-space12">
+                <div class="layui-col-xs12"><p style="font-size: 20px; text-align: center; color: #16baaa;">pac脚本设置</p></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-input-group">
+                    <div class="layui-input-prefix">Pac脚本内容:</div>
+                    <textarea name="proxyScript" id="proxyScript"  lay-filter="proxyScript" placeholder="Pac脚本内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <hr class="layui-border-black">
+            <!--手动设置代理-->
+            <div class="layui-row layui-col-space12">
+                <div class="layui-col-xs12"><p style="font-size: 20px; text-align: center; color: #16baaa;">手动设置代理</p></div>
+                <div class="layui-col-xs6">
+                </div>
+            </div>
+            <div class="layui-row" lay-filter="singleProxySetting">
+                <div class="layui-input-group">
+                    <div class="layui-input-prefix">代理服务器地址:</div>
+                    <input type="text" class="layui-input" name="singleProxy_host" id="singleProxy_host" lay-filter="singleProxy_host" value="127.0.0.1" placeholder="代理服务器地址">
+                </div>
+                <div class="layui-input-group">
+                    <div class="layui-input-prefix">代理服务器端口:</div>
+                    <input type="number" class="layui-input" name="singleProxy_port" id="singleProxy_port" lay-filter="singleProxy_port" value="10808" step="1" placeholder="代理服务器端口">
+                </div>
+                <div class="layui-input-group">
+                    <div class="layui-input-prefix">代理服务器协议:</div>
+                    <div>
+                        <select name="singleProxy_scheme" id="singleProxy_scheme" lay-filter="singleProxy_scheme" title="代理服务器协议">
+                          <option value="http">http</option>
+                          <option value="https">https</option>
+                          <option value="quic">quic</option>
+                          <option value="socks4" >socks4</option>
+                          <option value="socks5" selected>socks5</option>
+                        </select>
+                      </div>
+                </div>
+            </div>
+            <!--简易设置绕行列表-->
+            <div class="layui-row">
+                <hr class="ws-space-16">
+                <textarea name="singleProxy_bypass_list" id="singleProxy_bypass_list" lay-filter="singleProxy_bypass_list" placeholder="绕行列表" class="layui-textarea"></textarea>
+            </div>
+            <hr class="layui-border-black">
+            <!--手动设置代理-高级设置-->
+            <div class="layui-row">
+                <div class="layui-col-xs3">
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">HTTP代理服务器地址:</div>
+                        <input type="text" name="multipleProxySetting_proxyForHttpSetting_host" id="multipleProxySetting_proxyForHttpSetting_host"  lay-filter="multipleProxySetting_proxyForHttpSetting_host" class="layui-input" value="127.0.0.1" placeholder="代理服务器地址">
+                    </div>
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">HTTP代理服务器端口:</div>
+                        <input type="number" class="layui-input" name="multipleProxySetting_proxyForHttpSetting_port" id="multipleProxySetting_proxyForHttpSetting_port"  lay-filter="multipleProxySetting_proxyForHttpSetting_port" value="10808" step="1" placeholder="代理服务器端口">
+                    </div>
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">HTTP代理服务器协议:</div>
+                        <div>
+                            <select  name="multipleProxySetting_proxyForHttpSetting_scheme" id="multipleProxySetting_proxyForHttpSetting_scheme"  lay-filter="multipleProxySetting_proxyForHttpSetting_scheme" title="HTTP代理服务器协议">
+                              <option value="http">http</option>
+                              <option value="https">https</option>
+                              <option value="quic">quic</option>
+                              <option value="socks4" >socks4</option>
+                              <option value="socks5" selected>socks5</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+                <div class="layui-col-xs3">
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">HTTPS代理服务器地址:</div>
+                        <input type="text" class="layui-input" name="multipleProxySetting_proxyForHttpsSetting_host" id="multipleProxySetting_proxyForHttpsSetting_host"  lay-filter="multipleProxySetting_proxyForHttpsSetting_host"  value="127.0.0.1" placeholder="代理服务器地址">
+                    </div>
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">HTTPS代理服务器端口:</div>
+                        <input type="number" class="layui-input"  name="multipleProxySetting_proxyForHttpsSetting_port" id="multipleProxySetting_proxyForHttpsSetting_port"  lay-filter="multipleProxySetting_proxyForHttpsSetting_port"  value="10808" step="1" placeholder="代理服务器端口">
+                    </div>
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">HTTPS代理服务器协议:</div>
+                        <div>
+                            <select  name="multipleProxySetting_proxyForHttpsSetting_scheme"  id="multipleProxySetting_proxyForHttpsSetting_scheme"  lay-filter="multipleProxySetting_proxyForHttpsSetting_scheme" title="HTTPS代理服务器协议">
+                              <option value="http">http</option>
+                              <option value="https">https</option>
+                              <option value="quic">quic</option>
+                              <option value="socks4">socks4</option>
+                              <option value="socks5" selected="true">socks5</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+                <div class="layui-col-xs3">
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">FTP代理服务器地址:</div>
+                        <input type="text" class="layui-input"  name="multipleProxySetting_proxyForFtpSetting_host" id="multipleProxySetting_proxyForFtpSetting_host"  lay-filter="multipleProxySetting_proxyForFtpSetting_host"   value="127.0.0.1" placeholder="代理服务器地址">
+                    </div>
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">FTP代理服务器端口:</div>
+                        <input type="number" class="layui-input"  name="multipleProxySetting_proxyForFtpSetting_port" id="multipleProxySetting_proxyForFtpSetting_port"  lay-filter="multipleProxySetting_proxyForFtpSetting_port"   value="10808" step="1" placeholder="代理服务器端口">
+                    </div>
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">FTP代理服务器协议:</div>
+                        <div>
+                            <select  name="multipleProxySetting_proxyForFtpSetting_scheme" id="multipleProxySetting_proxyForFtpSetting_scheme"  lay-filter="multipleProxySetting_proxyForFtpSetting_scheme" title="FTP代理服务器协议" >
+                              <option value="http">http</option>
+                              <option value="https">https</option>
+                              <option value="quic">quic</option>
+                              <option value="socks4">socks4</option>
+                              <option value="socks5" selected>socks5</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+                <div class="layui-col-xs3">
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">其他协议代理服务器地址:</div>
+                        <input type="text" class="layui-input"    name="multipleProxySetting_fallbackProxySetting_host" id="multipleProxySetting_fallbackProxySetting_host"  lay-filter="multipleProxySetting_fallbackProxySetting_host"   value="127.0.0.1" placeholder="代理服务器地址">
+                    </div>
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">其他协议代理服务器端口:</div>
+                        <input type="number" class="layui-input"  name="multipleProxySetting_fallbackProxySetting_port" id="multipleProxySetting_fallbackProxySetting_port"  lay-filter="multipleProxySetting_fallbackProxySetting_port"  value="10808" step="1" placeholder="代理服务器端口">
+                    </div>
+                    <div class="layui-input-group">
+                        <div class="layui-input-prefix">其他协议代理服务器协议:</div>
+                        <div>
+                            <select name="multipleProxySetting_fallbackProxySetting_scheme" id="multipleProxySetting_fallbackProxySetting_scheme"  lay-filter="multipleProxySetting_fallbackProxySetting_scheme" title="其他协议代理服务器协议" >
+                              <option value="http">http</option>
+                              <option value="https">https</option>
+                              <option value="quic">quic</option>
+                              <option value="socks4">socks4</option>
+                              <option value="socks5" selected>socks5</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <!--手动设置绕行列表-高级设置-->
+            <div class="layui-row">
+                <hr class="ws-space-16">
+                <textarea name="multipleProxySetting_multiple_proxy_bypass_list" id="multipleProxySetting_multiple_proxy_bypass_list"  lay-filter="multipleProxySetting_multiple_proxy_bypass_list" placeholder="绕行列表" class="layui-textarea"></textarea>
+            </div>
+            <hr class="layui-border-black">
+            
+            <div class="layui-btn-container">
+                <button type="button" class="layui-btn layui-btn-radius"                   id="connect"      name="connect"      lay-filter="connect">连接并保存</button>
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-radius"  id="saveAll"      name="saveAll"      lay-filter="saveAll">保存设置</button>
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-radius"  id="resetAll"     name="resetAll"     lay-filter="resetAll">重置设置</button>
+            </div>
+        </div>
+    </body>
+</html>

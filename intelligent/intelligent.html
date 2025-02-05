@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo</title>
+    <!-- 引入 layui.css -->
+    <link href="../js/layui/css/layui.css" rel="stylesheet">
+    <!-- 引入 layui.js -->
+    <script src="../js/layui/layui.js"></script>
+    <!-- 引入 intelligent.html.js -->
+    <script src="./intelligent.html.js"></script>
+    <script src="../main/server.js"></script>
+    <script src="../main/setting.js"></script>
+    <script src="../main/defaultData.js"></script>
+    <script src="../main/tool.js"></script>
+  </head>
+  <!--智能设置-->
+  <body>
+    <div action=""  class="layui-form" name="intelligentSettings" lay-filter="intelligentSettings" id="intelligentSettings">
+      <table class="layui-hide" id="intelligentSettings_table" name="intelligentSettings_table" lay-filter="intelligentSettings_table"></table>
+      <!-- 原生 select 模板（推荐） -->
+      <script type="text/html" id="intelligentSettings_select">
+        <select name="type" class="layui-border intelligentSettings_select_primary" lay-ignore>
+          <option value="http">http</option>
+          <option value="https">https</option>
+          <option value="quic">quic</option>
+          <option value="socks4" >socks4</option>
+          <option value="socks5" selected>socks5</option>
+        </select> 
+      </script>
+    </div>
+    <button type="button" class="layui-btn layui-btn-radius layui-btn-primary" lay-filter="intelligent_autoSet" id="intelligent_autoSet" name="intelligent_autoSet">一键设定</button>
+    <button type="button" class="layui-btn layui-btn-radius" lay-filter="intelligent_connect" id="intelligent_connect" name="intelligent_connect">保存设置并连接</button>
+    <button type="button" class="layui-btn layui-bg-purple layui-btn-radius" lay-filter="intelligent_exporting_PAC_files" id="intelligent_exporting_PAC_files" name="intelligent_exporting_PAC_files">导出PAC文件</button>
+    <button type="button" class="layui-btn layui-btn-danger layui-btn-radius" lay-filter="intelligent_reset" id="intelligent_reset" name="intelligent_reset">清空智能设置</button>
+  </body>
+</html>
